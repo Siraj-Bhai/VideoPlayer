@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/jpg" href="{{ url_for('static', filename='video_player.jpg') }}">
+    <title>Video Player</title>
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        * {
+            margin: 10px;
+        }
+        .container {
+            text-align: center;
+        }
+
+        .searchbar {
+            width: 500px;
+            padding: 10px;
+            border-radius: 20px;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            font-size: 16px;
+        }
+
+        .btn {
+            padding-top: 10px;
+            padding: 10px 20px;
+            border-radius: 25px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 5px 10px rgb(73, 92, 199);
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+
+            animation: bounce 0.6s;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <div class="container">
+        <h1>Video Player</h1>
+
+        <!-- Search form -->
+        <form action="/search" method="post">
+            <input type="text" name="video_name" class="searchbar" placeholder="Enter video name" required autocomplete="off"><br><br>
+            <button class="btn" type="submit">Search</button>
+        </form>
+
+        <!-- Display video or error message -->
+        {% if video_url %}
+            <h3>Now Playing: {{ video_name }}</h3>
+            <iframe src="{{ video_url }}" width="640" height="480" allow="autoplay"></iframe>
+        {% elif error %}
+            <p style="color:red;font-weight:bold;">{{ error }}</p>
+        {% endif %}
+        </div>
+
+</body>
+</html>
